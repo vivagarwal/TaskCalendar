@@ -35,7 +35,7 @@ router.post('/:parentId', async (req, res) => {
     parentTask.subTasks.push(subtask._id);
     await parentTask.save();
 
-    return res.status(201).json({ message: "Subtask created successfully", subtask });
+    return res.status(201).json({ message: "Subtask created successfully"});
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -48,7 +48,7 @@ router.put('/:id', async (req, res) => {
     const subtask = await SubTask.findByIdAndUpdate(id, req.body, { new: true });
 
     if (!subtask) return res.status(404).json({ error: 'Subtask not found' });
-    res.status(200).json(subtask);
+    res.status(200).json({message : "subtask updated successfully"});
   } catch (err) {
     res.status(400).json({ error: 'Invalid subtask data' });
   }

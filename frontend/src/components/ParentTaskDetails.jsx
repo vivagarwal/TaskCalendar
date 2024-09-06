@@ -16,7 +16,7 @@ const ParentTaskDetails = () => {
       })
       .then((response) => {
         setTask(response.data);
-        setSubtasks(response.data.subTasks);
+        setSubtasks(response.data);
       })
       .catch((error) => {
         console.error("Error fetching task details:", error);

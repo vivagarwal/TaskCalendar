@@ -27,7 +27,7 @@ const ParentTaskList = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then(() => {
-        setTasks(tasks.filter((task) => task._id !== taskId));
+        setTasks(tasks.filter((task) => task.id !== taskId));
       })
       .catch((error) => {
         console.error("Error deleting task:", error);
@@ -45,18 +45,18 @@ const ParentTaskList = () => {
       </button>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tasks.map((task) => (
-          <div key={task._id} className="border p-4 rounded shadow">
+          <div key={task.id} className="border p-4 rounded shadow">
             <h2 className="text-xl font-bold">{task.title}</h2>
             <p>{task.description}</p>
             <button
               className="bg-blue-500 text-white py-1 px-2 rounded mt-2"
-              onClick={() => navigate(`/parenttask/${task._id}`)}
+              onClick={() => navigate(`/parenttask/${task.id}`)}
             >
               View Subtasks
             </button>
             <button
               className="bg-red-500 text-white py-1 px-2 rounded mt-2 ml-2"
-              onClick={() => handleDeleteTask(task._id)}
+              onClick={() => handleDeleteTask(task.id)}
             >
               Delete Task
             </button>

@@ -7,8 +7,14 @@ const router = express.Router();
 // Get all parent tasks for a user
 router.get('/', async (req, res) => {
   try {
-    const tasks = await ParentTask.find({ user: req.user.id }).populate('subTasks');
-    return res.status(200).json({ tasks });
+    const tasks = await ParentTask.find({ user: req.user.id });
+    // Mapping over the tasks array to extract the necessary fields
+    const tasksResponse = tasks.map(task => ({
+      id: task._id,
+      title: task.title,
+      description: task.description,
+    }));
+    return res.status(200).json({ tasks: tasksResponse });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -28,7 +34,7 @@ router.post('/', async (req, res) => {
     user.tasks.push(parentTask._id);
     await user.save();
 
-    return res.status(201).json({ message: "Parent task created successfully", parentTask });
+    return res.status(201).json({ message: "Parent task created successfully"});
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -42,10 +48,10 @@ router.put('/:id', async (req, res) => {
       { _id: id, user: req.user.id },
       req.body,
       { new: true }
-    ).populate('subTasks');
+    );
 
     if (!task) return res.status(404).json({ error: 'Parent task not found' });
-    res.status(200).json(task);
+    res.status(200).json({message: "parent task updated successfully"});
   } catch (err) {
     res.status(400).json({ error: 'Invalid task data' });
   }
@@ -83,10 +89,13 @@ router.get('/:id', async (req, res) => {
 
     if (!task) return res.status(404).json({ error: 'Parent task not found' });
 
-    res.status(200).json(task);
+    return res.status(200).json(task.subTasks);
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 });
+
+//get all the subtask based on the task by ID and the status of the subtask I want  to see
+
 
 module.exports = router;
