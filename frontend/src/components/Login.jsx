@@ -47,7 +47,7 @@ function Login() {
         }
 
         if (result.message === "You have successfully logged in!") {
-          navigate("/taskcalendar"); //
+          navigate("/parenttasks"); //
         } else {
           // Handle other responses if needed
           console.log("Login failed or unexpected response");
