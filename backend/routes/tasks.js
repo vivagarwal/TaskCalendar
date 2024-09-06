@@ -96,6 +96,23 @@ router.get('/:id', async (req, res) => {
 });
 
 //get all the subtask based on the task by ID and the status of the subtask I want  to see
+router.get('/:id/:status', async (req, res) => {
+  try {
+    const { id, status } = req.params;
+    // Fetch the parent task along with its subtasks
+    const task = await ParentTask.findOne({ _id: id, user: req.user.id }).populate('subTasks');
 
+    // Check if the parent task exists
+    if (!task) return res.status(404).json({ error: "Parent task not found" });
+
+    // Filter subtasks based on the status parameter
+    const filteredSubTasks = task.subTasks.filter(subTask => subTask.status === status);
+
+    // Return the filtered subtasks
+    return res.status(200).json(filteredSubTasks);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
 
 module.exports = router;
