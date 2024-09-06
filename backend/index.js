@@ -4,7 +4,10 @@ const dotenv = require("dotenv");
 const { DBConnection } = require("./database/db.js");
 const cookieParser = require("cookie-parser");
 const authRoutes = require('./routes/auth.js');
-const router = express.Router();
+const authMiddleware = require('./middleware/auth.js');
+const parentTaskRoutes = require('./routes/tasks.js');
+const subTaskRoutes = require('./routes/subtasks.js')
+
 dotenv.config();
 
 DBConnection(); //Db connection
@@ -21,6 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/', authRoutes);
+app.use('/tasks',authMiddleware,parentTaskRoutes)
+app.use('/subtasks',authMiddleware,subTaskRoutes)
 
 // Basic route for testing
 app.get('/', (req, res) => {

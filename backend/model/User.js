@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required : true,
-    }
+    },
+    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "ParentTask" }]
 });
 
-module.exports = mongoose.model("taskcalendaruser", userSchema);
+module.exports = mongoose.model("TaskCalendarUser", userSchema);

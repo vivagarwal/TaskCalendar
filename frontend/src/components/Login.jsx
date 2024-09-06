@@ -80,7 +80,7 @@ function Login() {
     <div className="flex items-center justify-center bg-gradient-to-r from-red-500 to-indigo-600 min-h-screen w-screen overflow-hidden">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md mx-2">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Login
+          Welcome to Task Calendar!
         </h2>
 
         {/* Display the error message if it exists */}
