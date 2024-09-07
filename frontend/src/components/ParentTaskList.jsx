@@ -36,7 +36,13 @@ const ParentTaskList = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((response) => {
-          setSubtasks(response.data.subTasks || response.data); // Handle different responses
+          const subtasks = response.data.subTasks || response.data;
+          // Sort subtasks by status
+          const statusOrder = ["Completed", "In Progress", "To Do", "Postponed", "Suspended"];
+          const sortedSubtasks = subtasks.sort((a, b) => {
+            return statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status);
+          });
+          setSubtasks(sortedSubtasks);
         })
         .catch((error) => {
           console.error("Error fetching subtasks:", error);
@@ -94,7 +100,13 @@ const ParentTaskList = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         })
         .then((response) => {
-          setSubtasks(response.data.subTasks || response.data); // Handle different responses
+          const subtasks = response.data.subTasks || response.data;
+          // Sort subtasks by status
+          const statusOrder = ["Completed", "In Progress", "To Do", "Postponed", "Suspended"];
+          const sortedSubtasks = subtasks.sort((a, b) => {
+            return statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status);
+          });
+          setSubtasks(sortedSubtasks);
         })
         .catch((error) => {
           console.error("Error fetching subtasks:", error);
@@ -104,7 +116,7 @@ const ParentTaskList = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4">Parent Tasks</h1>
+      <h1 className="text-3xl font-bold mb-4">Projects</h1>
 
       {/* Tabs for status */}
       <div className="mb-4">
@@ -121,7 +133,7 @@ const ParentTaskList = () => {
           Postponed
         </button>
         <button
-          className={`py-2 px-4 rounded ${status === "InProgress" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
+          className={`py-2 px-4 rounded ${status === "In Progress" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
           onClick={() => handleTabChange("In Progress")}
         >
           In Progress
@@ -139,19 +151,19 @@ const ParentTaskList = () => {
           Completed
         </button>
         <button
-          className={`py-2 px-4 rounded ${status === "ToDo" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
+          className={`py-2 px-4 rounded ${status === "To Do" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
           onClick={() => handleTabChange("To Do")}
         >
           To Do
         </button>
       </div>
-
       <button
         className="bg-green-500 text-white py-2 px-4 rounded mb-4"
         onClick={() => navigate("/create-parent-task")}
       >
-        Create Parent Task
+        Create Task
       </button>
+      
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tasks.map((task) => (
