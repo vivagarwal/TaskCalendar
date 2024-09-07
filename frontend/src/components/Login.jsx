@@ -13,6 +13,9 @@ function Login() {
   useEffect(() => {
     setEmail("");
     setPassword("");
+    const user = JSON.parse(localStorage.getItem("user")); // Parse the user object from localStorage
+    if(user!=null)
+      navigate("/parenttasks"); //
   }, []);
 
   const handleSubmit = (e) => {
