@@ -9,6 +9,7 @@ const CreateSubTaskDate = () => {
   const [status, setStatus] = useState("To Do");
   const [dueDate, setDueDate] = useState(date || ""); // Initialize dueDate from URL or empty string
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     // Set dueDate if date is available in URL
@@ -22,7 +23,7 @@ const CreateSubTaskDate = () => {
 
     axios
       .post(
-        `http://localhost:8080/subtasks/${parentId}`, // Use parentId in URL
+        `${baseUrl}/subtasks/${parentId}`, // Use parentId in URL
         { title, description, status, dueDate },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

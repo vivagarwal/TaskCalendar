@@ -7,12 +7,15 @@ const CreateParentTask = () => {
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
 
+  const baseUrl = import.meta.env.VITE_BASE_URL; // Access base URL from environment variable
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
       .post(
-        "http://localhost:8080/tasks",
+        `${baseUrl}/tasks`,
         { title, description },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

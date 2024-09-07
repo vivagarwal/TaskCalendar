@@ -10,6 +10,8 @@ function Signup() {
   const [error, setError] = useState(""); // State to store error message
   const navigate = useNavigate();
 
+  const baseUrl = import.meta.env.VITE_BASE_URL; // Access base URL from environment variable
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -34,7 +36,7 @@ function Signup() {
     }
 
     axios
-      .post("http://localhost:8080/register", {
+      .post(`${baseUrl}/register`, {
         fullname,
         email,
         password,

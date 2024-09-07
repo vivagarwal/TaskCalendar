@@ -14,6 +14,7 @@ const CalendarSubTask = () => {
   const [showParentTasksDropdown, setShowParentTasksDropdown] = useState(false);
   const [selectedParentTask, setSelectedParentTask] = useState(null);
   const navigate = useNavigate(); // Initialize useNavigate
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetchSubTasks(selectedDate); // Fetch subtasks when date changes
@@ -30,7 +31,7 @@ const CalendarSubTask = () => {
     const formattedDate = formatDate(date);
 
     axios
-      .get(`http://localhost:8080/subtasks/by-date/${formattedDate}`, {
+      .get(`${baseUrl}/subtasks/by-date/${formattedDate}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -48,7 +49,7 @@ const CalendarSubTask = () => {
 
   const fetchParentTasks = () => {
     axios
-      .get(`http://localhost:8080/tasks`, {
+      .get(`${baseUrl}/tasks`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {

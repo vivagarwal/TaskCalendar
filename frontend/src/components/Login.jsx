@@ -8,6 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // State to store error message
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_BASE_URL; // Access base URL from environment variable
 
   // Reset form values on component mount
   useEffect(() => {
@@ -31,7 +32,7 @@ function Login() {
 
     axios
       .post(
-        "http://localhost:8080/login",
+        `${baseUrl}/login`,
         { email, password },
         { withCredentials: true }
       )

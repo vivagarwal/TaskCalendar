@@ -9,11 +9,13 @@ const EditSubTask = () => {
   const [status, setStatus] = useState("");
   const [dueDate, setDueDate] = useState("");
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_BASE_URL; // Access base URL from environment variable
+
 
   useEffect(() => {
     // Fetch the subtask details to edit
     axios
-      .get(`http://localhost:8080/subtasks/${subtaskId}`, {
+      .get(`${baseUrl}/subtasks/${subtaskId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -35,7 +37,7 @@ const EditSubTask = () => {
 
     axios
       .put(
-        `http://localhost:8080/subtasks/${subtaskId}`,
+        `${baseUrl}/subtasks/${subtaskId}`,
         { title, description, status, dueDate },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

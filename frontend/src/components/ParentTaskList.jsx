@@ -10,10 +10,12 @@ const ParentTaskList = () => {
   const [parentName, setParentName] = useState("");
   const navigate = useNavigate();
 
+  const baseUrl = import.meta.env.VITE_BASE_URL; // Access base URL from environment variable
+
   useEffect(() => {
     // Fetch all parent tasks on initial load
     axios
-      .get("http://localhost:8080/tasks", {
+      .get(`${baseUrl}/tasks`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -29,8 +31,8 @@ const ParentTaskList = () => {
     if (selectedTask) {
       const url =
         status === "MyTasks"
-          ? `http://localhost:8080/tasks/${selectedTask.id}`
-          : `http://localhost:8080/tasks/${selectedTask.id}/${status}`;
+          ? `${baseUrl}/tasks/${selectedTask.id}`
+          : `${baseUrl}/tasks/${selectedTask.id}/${status}`;
 
       axios
         .get(url, {
@@ -66,7 +68,7 @@ const ParentTaskList = () => {
   const handleDeleteTask = (taskId) => {
     // Delete a parent task
     axios
-      .delete(`http://localhost:8080/tasks/${taskId}`, {
+      .delete(`${baseUrl}/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then(() => {
@@ -85,7 +87,7 @@ const ParentTaskList = () => {
   const handleDeleteSubtask = (subtaskId) => {
     // Delete a subtask
     axios
-      .delete(`http://localhost:8080/subtasks/${subtaskId}`, {
+      .delete(`${baseUrl}/subtasks/${subtaskId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then(() => {

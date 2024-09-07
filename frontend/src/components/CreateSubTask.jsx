@@ -9,13 +9,14 @@ const CreateSubTask = () => {
   const [status, setStatus] = useState("To Do");
   const [dueDate, setDueDate] = useState("");
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
       .post(
-        `http://localhost:8080/subtasks/${parentId}`,
+        `${baseUrl}/subtasks/${parentId}`,
         { title, description, status, dueDate },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
