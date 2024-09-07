@@ -1,57 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EditSubTask = () => {
-  const { subtaskId } = useParams();
+const CreateSubTaskDate = () => {
+  const { parentId, date } = useParams(); // Extract both parentId and date from URL
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [status, setStatus] = useState("To Do");
+  const [dueDate, setDueDate] = useState(date || ""); // Initialize dueDate from URL or empty string
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the subtask details to edit
-    axios
-      .get(`http://localhost:8080/subtasks/${subtaskId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
-      .then((response) => {
-        const subtask = response.data.subtasks[0]; // Correctly access the first subtask object
-        if (subtask) {
-          setTitle(subtask.title);
-          setDescription(subtask.description);
-          setStatus(subtask.status);
-          setDueDate(subtask.dueDate.slice(0, 10)); // Format the dueDate for the date input
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching subtask:", error);
-      });
-  }, [subtaskId]);
+    // Set dueDate if date is available in URL
+    if (date) {
+      setDueDate(date);
+    }
+  }, [date]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .put(
-        `http://localhost:8080/subtasks/${subtaskId}`,
+      .post(
+        `http://localhost:8080/subtasks/${parentId}`, // Use parentId in URL
         { title, description, status, dueDate },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       )
       .then(() => {
-        navigate(`/parenttasks`);
+        navigate("/calendarsubtask");
       })
       .catch((error) => {
-        console.error("Error updating subtask:", error);
+        console.error("Error creating subtask:", error);
       });
   };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Edit Subtask</h1>
+      <h1 className="text-3xl font-bold mb-4">Create Subtask</h1>
       <div className="mb-4">
         <label htmlFor="title" className="block text-gray-700 font-bold mb-2">
           Title
@@ -115,10 +102,10 @@ const EditSubTask = () => {
         type="submit"
         className="bg-blue-500 text-white py-2 px-4 rounded"
       >
-        Update
+        Submit
       </button>
     </form>
   );
 };
 
-export default EditSubTask;
+export default CreateSubTaskDate;

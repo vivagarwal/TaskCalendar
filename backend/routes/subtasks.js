@@ -4,9 +4,9 @@ const SubTask = require('../model/SubTask');
 const router = express.Router();
 
 // Get all subtasks for a parent task
-router.get('/:parentId', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const subtasks = await SubTask.find({ parentTask: req.params.parentId });
+    const subtasks = await SubTask.find({ _id: req.params.id });
     return res.status(200).json({ subtasks });
   } catch (err) {
     return res.status(500).json({ error: err.message });

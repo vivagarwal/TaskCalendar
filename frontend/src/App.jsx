@@ -8,6 +8,8 @@ import ParentTaskCreate from "./components/ParentTaskCreate";
 import EditSubTask from "./components/EditSubtask";
 import CreateSubTask from "./components/CreateSubTask";
 import CalendarSubTask from "./components/CalendarSubTask";
+import CreateSubTaskDate from "./components/CreateSubTaskDate";
+
 import './index.css';
 
 const App = () => {
@@ -22,7 +24,8 @@ const App = () => {
           <Route path="/parenttasks" element={<ParentTaskList />} />
           <Route path="/create-parent-task" element={<ParentTaskCreate />} />
           <Route path="/edit-subtask/:subtaskId" element={<EditSubTask />} />
-          <Route path="/create-subtask/:parentId" element={<CreateSubTask />} />  
+          <Route path="/create-subtask/:parentId" element={<CreateSubTask />} />
+          <Route path="/create-subtask/:parentId/:date" element={<CreateSubTaskDate />} />  
           <Route path="/calendarsubtask" element={<CalendarSubTask />} />
         </Routes>
       </div> 

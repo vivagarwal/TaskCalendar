@@ -90,7 +90,8 @@ const CalendarSubTask = () => {
   const handleDropdownItemClick = (task) => {
     setSelectedParentTask(task);
     setShowParentTasksDropdown(false); // Hide the dropdown
-    navigate(`/create-subtask/${task.id}`); // Redirect to create subtask page
+    const formattedDate = formatDate(selectedDate);
+    navigate(`/create-subtask/${task.id}/${formattedDate}`); // Redirect to create subtask page with date
   };
 
   return (
