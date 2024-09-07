@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaHome, FaCalendarAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
+import "./css/ParentTaskList.css";
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("user")); // Parse the user object from localStorage
@@ -14,35 +16,52 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gray-800 p-4 shadow-md">
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
-          <div className="text-white font-bold text-xl">Task Calendar</div>
+          <div>
+            <Link to="/parenttasks" className="text-white font-bold text-2xl flex items-center">
+              <FaHome className="mr-2" /> Task Calendar
+            </Link>
+            {user && (
+              <p className="text-white text-sm mt-1 flex items-center">
+                <FaUser className="mr-1" /> Hello, {user.fullname}
+              </p>
+            )}
+          </div>
           <ul className="flex space-x-4 items-center">
             {user ? (
               <>
-                <li className="text-white">
-                  Welcome, {user.fullname}
+                <li>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded flex items-center"
+                    onClick={() => navigate("/calendarsubtask")}
+                  >
+                    <FaCalendarAlt className="mr-1" /> Show Task for Date
+                  </button>
                 </li>
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="text-white hover:text-gray-300 bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded flex items-center"
                   >
-                    Logout
+                    <FaSignOutAlt className="mr-1" /> Logout
                   </button>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <Link className="text-white hover:text-gray-300" to="/login">
+                  <Link
+                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded"
+                    to="/login"
+                  >
                     Login
                   </Link>
                 </li>
                 <li>
                   <Link
-                    className="text-white hover:text-gray-300"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded"
                     to="/register"
                   >
                     Register

@@ -1,0 +1,259 @@
+/* Container and Layout */
+.app-container {
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-actions svg {
+    font-size: 20px;
+    color: #666;
+}
+
+/* Main Content Area */
+.main-content {
+    padding: 24px;
+    flex: 1;
+}
+
+/* Status Tabs */
+.status-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.status-tab {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.status-tab.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+/* Task Creation */
+.create-task-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.create-task-button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.create-task-button:hover {
+    background-color: #0056b3;
+}
+
+/* Parent Task Slider */
+.parent-task-slider {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 16px; /* Add space at the bottom */
+}
+
+.parent-task-card {
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
+    flex: 0 0 auto;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.parent-task-card.selected {
+    background-color: #e9ecef;
+}
+
+.parent-task-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.parent-task-title .icon {
+    font-size: 18px;
+    color: #007bff;
+}
+
+.parent-task-title .text {
+    font-size: 16px;
+}
+
+.parent-task-description {
+    margin-bottom: 12px;
+}
+
+/* Delete Button on Parent Task */
+.delete-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: #dc3545;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Subtask Section */
+.subtask-section {
+    margin-top: 32px;
+}
+
+.subtask-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.subtask-card {
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtask Title */
+.subtask-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Subtask Description */
+.subtask-description {
+    margin-bottom: 8px;
+    color: #666;
+}
+
+/* Subtask Details */
+.subtask-details {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.subtask-details .status {
+    color: #007bff;
+}
+
+.subtask-details .due-date {
+    color: #666;
+}
+
+/* Subtask Actions */
+.subtask-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Edit and Delete Button Styling */
+.edit-button,
+.delete-button {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.edit-button:hover {
+    background-color: #0069d9;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.green {
+    background-color: #34C759;
+    color: #fff;
+  }
+  
+  .orange {
+    background-color: #FFC107;
+    color: #fff;
+  }
+  
+  .blue {
+    background-color: #2196F3;
+    color: #fff;
+  }
+  
+  .red {
+    background-color: #FF3737;
+    color: #fff;
+  }
+  
+  .yellow {
+    background-color: #F7DC6F;
+    color: #fff;
+  }

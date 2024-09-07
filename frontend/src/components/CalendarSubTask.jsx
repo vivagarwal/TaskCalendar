@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 
 const CalendarSubTask = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [subtasks, setSubtasks] = useState([]);
   const [filteredSubtasks, setFilteredSubtasks] = useState([]);
   const [error, setError] = useState(null);
-  const [selectedTab, setSelectedTab] = useState('MyTasks'); // Default tab
+  const [selectedTab, setSelectedTab] = useState('MyTasks');
   const [parentTasks, setParentTasks] = useState([]);
   const [showParentTasksDropdown, setShowParentTasksDropdown] = useState(false);
   const [selectedParentTask, setSelectedParentTask] = useState(null);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    fetchSubTasks(selectedDate); // Fetch subtasks when date changes
+    fetchSubTasks(selectedDate);
   }, [selectedDate, selectedTab]);
 
   const formatDate = (date) => {
@@ -35,8 +35,12 @@ const CalendarSubTask = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
-        setSubtasks(response.data);
-        setFilteredSubtasks(filterSubtasks(response.data, selectedTab));
+        const statusOrder = ["Completed", "In Progress", "To Do", "Postponed", "Suspended"];
+        const sortedSubtasks = response.data.sort((a, b) => 
+          statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
+        );
+        setSubtasks(sortedSubtasks);
+        setFilteredSubtasks(filterSubtasks(sortedSubtasks, selectedTab));
         setError(null);
       })
       .catch((error) => {
@@ -90,24 +94,30 @@ const CalendarSubTask = () => {
 
   const handleDropdownItemClick = (task) => {
     setSelectedParentTask(task);
-    setShowParentTasksDropdown(false); // Hide the dropdown
+    setShowParentTasksDropdown(false);
     const formattedDate = formatDate(selectedDate);
-    navigate(`/create-subtask/${task.id}/${formattedDate}`); // Redirect to create subtask page with date
+    navigate(`/create-subtask/${task.id}/${formattedDate}`);
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4 relative">
-      <h1 className="text-3xl font-bold mb-4">Subtasks by Date</h1>
+    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
+      <h1 className="text-4xl font-bold mb-6 text-gray-800">Subtasks by Date</h1>
 
-      <div className="absolute top-4 right-4">
+      <div className="relative mb-6">
         <button
           onClick={handleCreateTaskClick}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg"
+          className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           Create Task
         </button>
 
-        {showParentTasksDropdown && (
+        {showParentTasksDropdown && parentTasks.length === 0 && (
+          <div className="absolute mt-2 bg-white shadow-lg rounded-lg border border-gray-300 z-10 px-4 py-2">
+            <p className="text-red-600">There are no projects to create a task. Please create one and try again.</p>
+          </div>
+        )}
+
+        {showParentTasksDropdown && parentTasks.length > 0 && (
           <div className="absolute mt-2 bg-white shadow-lg rounded-lg border border-gray-300 z-10">
             <ul className="max-h-60 overflow-y-auto">
               {parentTasks.map(task => (
@@ -124,14 +134,15 @@ const CalendarSubTask = () => {
         )}
       </div>
 
-      <div className="mb-4">
+      <div className="mb-6 w-full max-w-md">
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
+          className="border border-gray-300 rounded-md"
         />
       </div>
 
-      <div className="mb-4 flex space-x-4 border-b border-gray-300">
+      <div className="mb-6 flex space-x-4 border-b border-gray-300 pb-2">
         {['MyTasks', 'In Progress', 'Completed', 'To Do'].map(tab => (
           <button
             key={tab}
@@ -145,22 +156,22 @@ const CalendarSubTask = () => {
         ))}
       </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <div className="mt-4">
+      <div className="w-full max-w-2xl">
         {filteredSubtasks.length === 0 && !error && (
-          <p>No subtasks found for the selected date and tab.</p>
+          <p className="text-gray-600">No subtasks found for the selected date and tab.</p>
         )}
         {filteredSubtasks.length > 0 && (
           <div className="grid grid-cols-1 gap-4">
             {filteredSubtasks.map((subtask) => (
               <div
                 key={subtask._id}
-                className="bg-white shadow-md rounded-lg p-4 border border-gray-300"
+                className="bg-white shadow-md rounded-lg p-6 border border-gray-300"
               >
-                <h2 className="text-xl font-bold mb-2">{subtask.title}</h2>
+                <h2 className="text-2xl font-bold mb-2">{subtask.title}</h2>
                 <p className="text-gray-700 mb-1">Description: {subtask.description}</p>
-                <p className="text-gray-700 mb-1">Status: {subtask.status}</p>
+                <p className="text-gray-700 mb-1">Status: <span className={`font-semibold ${subtask.status === 'Completed' ? 'text-green-600' : subtask.status === 'In Progress' ? 'text-yellow-600' : subtask.status === 'To Do' ? 'text-blue-600' : subtask.status === 'Postponed' ? 'text-orange-600' : 'text-gray-600'}`}>{subtask.status}</span></p>
                 <p className="text-gray-700 mb-1">Parent Task: {subtask.parentTask.title}</p>
                 <p className="text-gray-500">Due Date: {new Date(subtask.dueDate).toLocaleDateString('en-GB')}</p>
               </div>

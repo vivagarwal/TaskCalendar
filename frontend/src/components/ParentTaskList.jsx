@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaPlus, FaCalendarAlt, FaBell, FaSearch, FaEdit, FaTrash } from "react-icons/fa";
+import "./css/ParentTaskList.css";
 
 const ParentTaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -103,135 +105,104 @@ const ParentTaskList = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-4">Projects</h1>
-
-      {/* Tabs for status */}
-      <div className="mb-4">
-        <button
-          className={`py-2 px-4 rounded ${status === "MyTasks" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
-          onClick={() => handleTabChange("MyTasks")}
-        >
-          My Tasks
-        </button>
-        <button
-          className={`py-2 px-4 rounded ${status === "Postponed" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
-          onClick={() => handleTabChange("Postponed")}
-        >
-          Postponed
-        </button>
-        <button
-          className={`py-2 px-4 rounded ${status === "In Progress" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
-          onClick={() => handleTabChange("In Progress")}
-        >
-          In Progress
-        </button>
-        <button
-          className={`py-2 px-4 rounded ${status === "Suspended" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
-          onClick={() => handleTabChange("Suspended")}
-        >
-          Suspended
-        </button>
-        <button
-          className={`py-2 px-4 rounded ${status === "Completed" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
-          onClick={() => handleTabChange("Completed")}
-        >
-          Completed
-        </button>
-        <button
-          className={`py-2 px-4 rounded ${status === "To Do" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
-          onClick={() => handleTabChange("To Do")}
-        >
-          To Do
-        </button>
+    <div className="app-container">
+      <div className="header">
+        <div className="header-title">Projects</div>
       </div>
-
-      <button
-        className="bg-green-500 text-white py-2 px-4 rounded mb-4"
-        onClick={() => navigate("/create-parent-task")}
-      >
-        Create Project
-      </button>
-
-      {/* Conditionally render "Create Task" button only when a task is selected */}
-      {selectedTask && (
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
-          onClick={() => navigate(`/create-subtask/${selectedTask.id}`)}
-        >
-          Create Task
-        </button>
-      )}
-
-      <button
-        className="bg-yellow-500 text-white py-2 px-4 rounded mb-4"
-        onClick={() => navigate("/calendarsubtask")}
-      >
-        Show Task for Date
-      </button>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {tasks.map((task) => (
-          <div
-            key={task.id}
-            className={`border p-4 rounded shadow cursor-pointer ${selectedTask && selectedTask.id === task.id ? 'bg-blue-100' : ''}`}
-            onClick={() => handleSelectTask(task)}
-          >
-            <h2 className="text-xl font-bold">{task.title}</h2>
-            <p>{task.description}</p>
+      <div className="main-content">
+        <div className="status-tabs">
+          {["MyTasks", "Postponed", "In Progress", "Suspended", "Completed", "To Do"].map((statusTab) => (
             <button
-              className="bg-red-500 text-white py-1 px-2 rounded mt-2"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent the click event from bubbling up to the card click handler
-                handleDeleteTask(task.id);
-              }}
+              key={statusTab}
+              className={`status-tab ${status === statusTab ? "active" : ""}`}
+              onClick={() => handleTabChange(statusTab)}
             >
-              Delete Task
+              {statusTab}
             </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {selectedTask && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Subtasks for Project: {parentName}</h2>
-          <table className="table-auto w-full mt-4">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Due Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div className="create-task-container">
+          <button className="create-task-button" onClick={() => navigate("/create-parent-task")}>
+            <FaPlus /> Create Project
+          </button>
+
+          {selectedTask && (
+            <button className="create-task-button" onClick={() => navigate(`/create-subtask/${selectedTask.id}`)}>
+              <FaPlus /> Create Task
+            </button>
+          )}
+
+          {/* <button className="create-task-button" onClick={() => navigate("/calendarsubtask")}>
+            <FaCalendarAlt /> Show Task for Date
+          </button> */}
+        </div>
+
+        {/* Parent Task Slider */}
+        <div className="parent-task-slider">
+          {tasks.map((task) => (
+            <div
+              key={task.id}
+              className={`parent-task-card ${selectedTask && selectedTask.id === task.id ? "selected" : ""}`}
+              onClick={() => handleSelectTask(task)}
+            >
+              <div className="parent-task-title">
+                <span className="icon"><FaEdit /></span>
+                <span className="text">{task.title}</span>
+              </div>
+              <div className="parent-task-description">{task.description}</div>
+              <button
+                className="delete-button"
+                onClick={(e) => {
+                  e.stopPropagation(); 
+                  handleDeleteTask(task.id);
+                }}
+              >
+                <FaTrash />
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Subtask Display */}
+        {selectedTask && (
+          <div className="subtask-section">
+            <h2 className="subtask-title">Subtasks for Project: {parentName}</h2>
+            <div className="subtask-list">
               {subtasks.map((subtask) => (
-                <tr key={subtask._id}>
-                  <td>{subtask.title}</td>
-                  <td>{subtask.description}</td>
-                  <td>{subtask.status}</td>
-                  <td>{new Date(subtask.dueDate).toLocaleDateString('en-GB')}</td>
-                  <td>
+                <div key={subtask._id} className="subtask-card">
+                  <div className="subtask-title">
+                    {subtask.title}
+                  </div>
+                  <div className="subtask-description">
+                    {subtask.description}
+                  </div>
+                  <div className="subtask-details">
+                    <span className="status">{subtask.status}</span>
+                    <span className="due-date">
+                      {new Date(subtask.dueDate).toLocaleDateString("en-GB")}
+                    </span>
+                  </div>
+                  <div className="subtask-actions">
                     <button
-                      className="bg-blue-500 text-white py-1 px-2 rounded"
+                      className="edit-button"
                       onClick={() => navigate(`/edit-subtask/${subtask._id}`)}
                     >
-                      Edit
+                      <FaEdit />
                     </button>
                     <button
-                      className="bg-red-500 text-white py-1 px-2 rounded ml-2"
+                      className="button"
                       onClick={() => handleDeleteSubtask(subtask._id)}
                     >
-                      Delete
+                      <FaTrash/>
                     </button>
-                  </td>
-                </tr>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
