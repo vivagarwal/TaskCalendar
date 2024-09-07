@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 const CalendarSubTask = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -9,6 +10,14 @@ const CalendarSubTask = () => {
   const [filteredSubtasks, setFilteredSubtasks] = useState([]);
   const [error, setError] = useState(null);
   const [selectedTab, setSelectedTab] = useState('MyTasks'); // Default tab
+  const [parentTasks, setParentTasks] = useState([]);
+  const [showParentTasksDropdown, setShowParentTasksDropdown] = useState(false);
+  const [selectedParentTask, setSelectedParentTask] = useState(null);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  useEffect(() => {
+    fetchSubTasks(selectedDate); // Fetch subtasks when date changes
+  }, [selectedDate, selectedTab]);
 
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -19,7 +28,6 @@ const CalendarSubTask = () => {
 
   const fetchSubTasks = (date) => {
     const formattedDate = formatDate(date);
-    console.log(formattedDate);
 
     axios
       .get(`http://localhost:8080/subtasks/by-date/${formattedDate}`, {
@@ -35,6 +43,21 @@ const CalendarSubTask = () => {
         setError("Failed to fetch subtasks. Please try again.");
         setSubtasks([]);
         setFilteredSubtasks([]);
+      });
+  };
+
+  const fetchParentTasks = () => {
+    axios
+      .get(`http://localhost:8080/tasks`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((response) => {
+        setParentTasks(response.data.tasks);
+        setShowParentTasksDropdown(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching parent tasks:", error);
+        setError("Failed to fetch parent tasks. Please try again.");
       });
   };
 
@@ -54,17 +77,50 @@ const CalendarSubTask = () => {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    fetchSubTasks(date);
   };
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
-    setFilteredSubtasks(filterSubtasks(subtasks, tab));
+  };
+
+  const handleCreateTaskClick = () => {
+    fetchParentTasks();
+  };
+
+  const handleDropdownItemClick = (task) => {
+    setSelectedParentTask(task);
+    setShowParentTasksDropdown(false); // Hide the dropdown
+    navigate(`/create-subtask/${task.id}`); // Redirect to create subtask page
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4">
+    <div className="max-w-lg mx-auto p-4 relative">
       <h1 className="text-3xl font-bold mb-4">Subtasks by Date</h1>
+
+      <div className="absolute top-4 right-4">
+        <button
+          onClick={handleCreateTaskClick}
+          className="bg-green-500 text-white px-4 py-2 rounded-lg"
+        >
+          Create Task
+        </button>
+
+        {showParentTasksDropdown && (
+          <div className="absolute mt-2 bg-white shadow-lg rounded-lg border border-gray-300 z-10">
+            <ul className="max-h-60 overflow-y-auto">
+              {parentTasks.map(task => (
+                <li
+                  key={task.id}
+                  onClick={() => handleDropdownItemClick(task)}
+                  className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                >
+                  {task.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
 
       <div className="mb-4">
         <Calendar
