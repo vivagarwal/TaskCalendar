@@ -174,6 +174,13 @@ const ParentTaskList = () => {
         </button>
       )}
 
+      <button
+        className="bg-yellow-500 text-white py-2 px-4 rounded mb-4"
+        onClick={() => navigate("/calendarsubtask")}
+      >
+        Show Task for Date
+      </button>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tasks.map((task) => (
           <div
@@ -215,7 +222,7 @@ const ParentTaskList = () => {
                   <td>{subtask.title}</td>
                   <td>{subtask.description}</td>
                   <td>{subtask.status}</td>
-                  <td>{subtask.dueDate}</td>
+                  <td>{new Date(subtask.dueDate).toLocaleDateString('en-GB')}</td>
                   <td>
                     <button
                       className="bg-blue-500 text-white py-1 px-2 rounded"

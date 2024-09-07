@@ -74,4 +74,32 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+//to fetch all the subtask for a given date which it will filter on a dute date to match the date being pased in the url
+router.get('/by-date/:date', async (req, res) => {
+  const { date } = req.params;
+  try {
+    // Parse the provided date
+    const startDate = new Date(date);
+    const endDate = new Date(date);
+
+    // Set the endDate to the end of the day (23:59:59.999)
+    endDate.setUTCHours(23, 59, 59, 999);
+
+    // Find subtasks where the dueDate falls within the start and end of the provided date
+    // Populate the parentTask field with the parent task's name
+    const subtasks = await SubTask.find({
+      dueDate: {
+        $gte: startDate,
+        $lte: endDate,
+      },
+    }).populate('parentTask', 'title'); // Populate with the name of the parent task
+
+    res.status(200).json(subtasks);
+  } catch (error) {
+    console.error('Error fetching subtasks by date:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 module.exports = router

@@ -95,7 +95,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-//get all the subtask based on the task by ID and the status of the subtask I want  to see
+//get all the subtask based on the task by ID and the status of the subtask I want to see
 router.get('/:id/:status', async (req, res) => {
   try {
     const { id, status } = req.params;
