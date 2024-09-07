@@ -133,9 +133,9 @@ const ParentTaskList = () => {
             </button>
           )}
 
-          {/* <button className="create-task-button" onClick={() => navigate("/calendarsubtask")}>
+          <button className="create-task-button" onClick={() => navigate("/calendarsubtask")}>
             <FaCalendarAlt /> Show Task for Date
-          </button> */}
+          </button>
         </div>
 
         {/* Parent Task Slider */}
