@@ -161,9 +161,18 @@ const ParentTaskList = () => {
         className="bg-green-500 text-white py-2 px-4 rounded mb-4"
         onClick={() => navigate("/create-parent-task")}
       >
-        Create Task
+        Create Project
       </button>
-      
+
+      {/* Conditionally render "Create Task" button only when a task is selected */}
+      {selectedTask && (
+        <button
+          className="bg-blue-500 text-white py-2 px-4 rounded mb-4"
+          onClick={() => navigate(`/create-subtask/${selectedTask.id}`)}
+        >
+          Create Task
+        </button>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tasks.map((task) => (
@@ -212,7 +221,7 @@ const ParentTaskList = () => {
                       className="bg-blue-500 text-white py-1 px-2 rounded"
                       onClick={() => navigate(`/edit-subtask/${subtask._id}`)}
                     >
-                      Update
+                      Edit
                     </button>
                     <button
                       className="bg-red-500 text-white py-1 px-2 rounded ml-2"

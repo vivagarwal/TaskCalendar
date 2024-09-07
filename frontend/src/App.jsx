@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import ParentTaskList from "./components/ParentTaskList";
 import ParentTaskCreate from "./components/ParentTaskCreate";
 import EditSubTask from "./components/EditSubtask";
+import CreateSubTask from "./components/CreateSubTask";
 import './index.css';
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
           <Route path="/parenttasks" element={<ParentTaskList />} />
           <Route path="/create-parent-task" element={<ParentTaskCreate />} />
           <Route path="/edit-subtask/:subtaskId" element={<EditSubTask />} />
-      
+          <Route path="/create-subtask/:parentId" element={<CreateSubTask />} />      
         </Routes>
       </div> 
     </div>
