@@ -7,6 +7,7 @@ const ParentTaskList = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [subtasks, setSubtasks] = useState([]);
   const [status, setStatus] = useState("MyTasks"); // Default value for the status tab
+  const [parentName, setParentName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +43,14 @@ const ParentTaskList = () => {
           const sortedSubtasks = subtasks.sort((a, b) => {
             return statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status);
           });
+
           setSubtasks(sortedSubtasks);
+
+          // Only set parentName when it's empty (task is first selected)
+          if (!parentName) {
+            const parent_name = response.data.title || selectedTask.title;
+            setParentName(parent_name);
+          }
         })
         .catch((error) => {
           console.error("Error fetching subtasks:", error);
@@ -52,6 +60,7 @@ const ParentTaskList = () => {
 
   const handleSelectTask = (task) => {
     setSelectedTask(task); // Set the selected task to trigger the useEffect
+    setParentName(task.title); // Set the parent task name when a new task is selected
   };
 
   const handleDeleteTask = (taskId) => {
@@ -65,6 +74,7 @@ const ParentTaskList = () => {
         if (selectedTask && selectedTask.id === taskId) {
           setSelectedTask(null); // Clear selected task if deleted
           setSubtasks([]); // Clear subtasks if the selected task is deleted
+          setParentName(""); // Clear the parent name if the selected task is deleted
         }
       })
       .catch((error) => {
@@ -88,30 +98,6 @@ const ParentTaskList = () => {
 
   const handleTabChange = (newStatus) => {
     setStatus(newStatus);
-    if (selectedTask) {
-      // Fetch subtasks when status changes while a task is selected
-      const url =
-        newStatus === "MyTasks"
-          ? `http://localhost:8080/tasks/${selectedTask.id}`
-          : `http://localhost:8080/tasks/${selectedTask.id}/${newStatus}`;
-
-      axios
-        .get(url, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        })
-        .then((response) => {
-          const subtasks = response.data.subTasks || response.data;
-          // Sort subtasks by status
-          const statusOrder = ["Completed", "In Progress", "To Do", "Postponed", "Suspended"];
-          const sortedSubtasks = subtasks.sort((a, b) => {
-            return statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status);
-          });
-          setSubtasks(sortedSubtasks);
-        })
-        .catch((error) => {
-          console.error("Error fetching subtasks:", error);
-        });
-    }
   };
 
   return (
@@ -157,6 +143,7 @@ const ParentTaskList = () => {
           To Do
         </button>
       </div>
+
       <button
         className="bg-green-500 text-white py-2 px-4 rounded mb-4"
         onClick={() => navigate("/create-parent-task")}
@@ -205,7 +192,7 @@ const ParentTaskList = () => {
 
       {selectedTask && (
         <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Subtasks for Task ID: {selectedTask.id}</h2>
+          <h2 className="text-2xl font-bold mb-4">Subtasks for Project: {parentName}</h2>
           <table className="table-auto w-full mt-4">
             <thead>
               <tr>

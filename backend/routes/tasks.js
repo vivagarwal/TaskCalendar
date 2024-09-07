@@ -89,7 +89,7 @@ router.get('/:id', async (req, res) => {
 
     if (!task) return res.status(404).json({ error: 'Parent task not found' });
 
-    return res.status(200).json(task.subTasks);
+    return res.status(200).json(task);
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
