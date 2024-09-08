@@ -2,6 +2,8 @@
 
 TaskCalendar is a full-stack task management application designed to help users organize tasks and events on a calendar interface. Built with a React frontend and an Express backend, this application leverages MongoDB for data storage and implements JWT-based authentication for secure user management.
 
+Deployment link - https://taskcalendar-frontend.onrender.com
+
 ## Features
 
 - User authentication using JWT
@@ -124,8 +126,8 @@ To see the test coverage
 npm test -- -- coverage
 ```
 
-**Test Coverage**
-!(<Screenshot 2024-09-08 at 9.16.38 PM.png>)
+**Test Coverage Screenhort**
+<img width="754" alt="Screenshot 2024-09-08 at 9 16 38 PM" src="https://github.com/user-attachments/assets/3ac44bb8-253a-4769-8d9b-d4a2bb54d838">
 
 ## Screenshots
 
