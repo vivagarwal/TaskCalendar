@@ -58,46 +58,37 @@ git clone https://github.com/vivagarwal/TaskCalendar.git
 
 Create a .env file in the backend directory and add the following:
 
-    ```bash
     MONGO_URI=mongodb://localhost:27017/your_database_name 
     SECRET_KEY=your_secret_key
-    ```
+    
 
 5. **Frontend Setup**
 
 Navigate to the frontend directory and install the required dependencies:
 
-    ```bash
     cd ../frontend
     npm install
-    ```
+    
 
 6. **Configure Environment Variables for fronyend**
 
 Create a .env file in the frontend directory and add the following:
 
-    ```bash
     VITE_BASE_URL=your_backend_url
-    ```
 
 7. **Run MongoDB locally**
 
 Ensure MongoDB is running on your local machine:
 
 On macOS
-    ```bash
     brew services start mongodb/brew/mongodb-community
-    ```
-
+    
 On windows
-    ```bash
     net start MongoDB
-    ```
-
+    
 On Ubuntu
-    ```bash
     sudo systemctl start mongod
-    ```
+    
 
 8. **Running the application**
 
@@ -118,6 +109,8 @@ In the frontend directory, run:
 ## Screenshots
 
 Below are some screenshots of the application:
+
+
 
 
 ## Configuration
