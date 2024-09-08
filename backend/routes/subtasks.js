@@ -101,5 +101,4 @@ router.get('/by-date/:date', async (req, res) => {
   }
 });
 
-
 module.exports = router

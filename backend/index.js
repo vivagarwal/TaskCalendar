@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 8080;
 
 // Configure CORS to allow credentials
 app.use(cors({
-    origin:['http://localhost:5173', 'https://taskcalendar-frontend.onrender.com'],
+    origin:['http://localhost:5173', 'https://taskcalendar-frontend.onrender.com'],//your frontend url
     credentials: true,
 }));
 app.use(express.json());

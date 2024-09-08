@@ -7,7 +7,7 @@ function Signup() {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State to store error message
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const baseUrl = import.meta.env.VITE_BASE_URL; // Access base URL from environment variable
