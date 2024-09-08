@@ -4,6 +4,8 @@ TaskCalendar is a full-stack task management application designed to help users 
 
 Deployment link - https://taskcalendar-frontend.onrender.com
 
+![Demo Recording Task Calender](/TaskCalendar.gif)
+
 ## Features
 
 - User authentication using JWT
@@ -24,6 +26,12 @@ Deployment link - https://taskcalendar-frontend.onrender.com
 - Backend: Node.js, Express.js.
 - Database: MongoDB.
 - Authentication: JSON Web Tokens (JWT).
+
+## Assumption
+
+1. We are only three status tan in the task calendar which are the most important ones (Completed, In Progress, To Do)
+2. The task are shown in following order in All Tasks View:- [Completed, In Progress, To Do, Postponed, Suspended]
+
 
 ## Prerequisites
 
