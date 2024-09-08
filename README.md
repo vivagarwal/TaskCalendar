@@ -81,30 +81,33 @@ Create a .env file in the frontend directory and add the following:
 Ensure MongoDB is running on your local machine:
 
 On macOS
-    brew services start mongodb/brew/mongodb-community
-    
+```
+brew services start mongodb/brew/mongodb-community
+```    
 On windows
+```
     net start MongoDB
-    
+```    
 On Ubuntu
+```
     sudo systemctl start mongod
-    
+``` 
 
 8. **Running the application**
 
 Start the Backend Server
 
 In the backend directory, run:
-    ```bash
-    npm start
-    ```
+```
+npm start
+```
 
 Start the Frontend Server
 
 In the frontend directory, run:
-    ```bash
-    npm start
-    ```
+```
+npm start
+```
 
 ## Screenshots
 
