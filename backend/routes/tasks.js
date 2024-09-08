@@ -40,23 +40,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update an existing parent task
-router.put('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const task = await ParentTask.findOneAndUpdate(
-      { _id: id, user: req.user.id },
-      req.body,
-      { new: true }
-    );
-
-    if (!task) return res.status(404).json({ error: 'Parent task not found' });
-    res.status(200).json({message: "parent task updated successfully"});
-  } catch (err) {
-    res.status(400).json({ error: 'Invalid task data' });
-  }
-});
-
 // Delete a parent task and its subtasks
 router.delete('/:id', async (req, res) => {
   try {
