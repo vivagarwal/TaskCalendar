@@ -58,67 +58,100 @@ git clone https://github.com/vivagarwal/TaskCalendar.git
 
 Create a .env file in the backend directory and add the following:
 
-    ```bash
     MONGO_URI=mongodb://localhost:27017/your_database_name 
     SECRET_KEY=your_secret_key
-    ```
+    
 
 5. **Frontend Setup**
 
 Navigate to the frontend directory and install the required dependencies:
 
-    ```bash
     cd ../frontend
     npm install
-    ```
+    
 
 6. **Configure Environment Variables for fronyend**
 
 Create a .env file in the frontend directory and add the following:
 
-    ```bash
     VITE_BASE_URL=your_backend_url
-    ```
 
 7. **Run MongoDB locally**
 
 Ensure MongoDB is running on your local machine:
 
 On macOS
-    ```bash
-    brew services start mongodb/brew/mongodb-community
-    ```
-
+```
+brew services start mongodb/brew/mongodb-community
+```    
 On windows
-    ```bash
+```
     net start MongoDB
-    ```
-
+```    
 On Ubuntu
-    ```bash
+```
     sudo systemctl start mongod
-    ```
+``` 
 
 8. **Running the application**
 
 Start the Backend Server
 
 In the backend directory, run:
-    ```bash
-    npm start
-    ```
+```
+npm start
+```
 
 Start the Frontend Server
 
 In the frontend directory, run:
-    ```bash
-    npm start
-    ```
+```
+npm start
+```
 
 ## Screenshots
 
 Below are some screenshots of the application:
 
+<img width="492" alt="Screenshot 2024-09-08 at 7 34 22 AM" src="https://github.com/user-attachments/assets/67753699-7af4-4fca-80df-888b6da0d8bf">
+
+![Screenshot 2024-09-08 at 1 56 19 PM](https://github.com/user-attachments/assets/2bc6d1b8-f6fc-4ebd-9c88-d15462d355b6)
+
+<img width="1470" alt="Screenshot 2024-09-08 at 1 56 29 PM" src="https://github.com/user-attachments/assets/aaf6da7f-5da4-4076-b3a5-003bde238c73">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 1 57 11 PM" src="https://github.com/user-attachments/assets/e18c4202-cbb3-4f0b-bb1a-10643dd4ae20">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 1 58 14 PM" src="https://github.com/user-attachments/assets/6fb84351-c69a-4d62-9ecc-90e2f9288184">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 1 58 31 PM" src="https://github.com/user-attachments/assets/193cdc9b-677f-40b2-95ed-d75d76243480">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 1 59 35 PM" src="https://github.com/user-attachments/assets/e8fd2439-4be6-4a32-b64f-7b9c3cb68416">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 1 59 58 PM" src="https://github.com/user-attachments/assets/ea773757-bc40-4962-8468-e4d0cfce503c">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 02 54 PM" src="https://github.com/user-attachments/assets/33796219-88f1-4e17-bb2c-432c3742794b">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 03 26 PM" src="https://github.com/user-attachments/assets/5bc31892-b071-4bf2-9e61-114821831995">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 07 52 PM" src="https://github.com/user-attachments/assets/d2681005-5740-4020-8b0b-be63ff36921e">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 08 03 PM" src="https://github.com/user-attachments/assets/71ecf947-d658-42e1-8677-63e8121a6a6d">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 08 07 PM" src="https://github.com/user-attachments/assets/0871a3b0-f1ed-4b98-bb97-bc14141947f8">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 08 10 PM" src="https://github.com/user-attachments/assets/95250522-e5b3-40e8-9d27-46888ec07edb">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 08 14 PM" src="https://github.com/user-attachments/assets/947e5e12-a458-471b-a704-0978ab01555a">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 08 41 PM" src="https://github.com/user-attachments/assets/4bef9e48-a1e8-4bba-98d0-aff32ce58599">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 08 50 PM" src="https://github.com/user-attachments/assets/cf09bd1a-6c58-4e92-b9e0-0b939f2c3547">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 09 39 PM" src="https://github.com/user-attachments/assets/0b6f4e38-6c99-4dd8-acd3-673b744d82f0">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 10 11 PM" src="https://github.com/user-attachments/assets/e9235ce2-1006-408e-a30a-2f53b88b0346">
+
+<img width="1470" alt="Screenshot 2024-09-08 at 2 12 55 PM" src="https://github.com/user-attachments/assets/da47fcb5-6901-4995-a153-0b5e9ec126e6">
 
 ## Configuration
 
