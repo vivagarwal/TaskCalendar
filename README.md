@@ -112,13 +112,20 @@ In the frontend directory, run:
 npm start
 ```
 
-9. **Testing the backend**
+9. **I have added the test cases for backend**
 
 Command to run the test for backend
 In the backend directory, run:
 ```
 npm test
 ```
+To see the test coverage
+```
+npm test -- -- coverage
+```
+
+**Test Coverage**
+!(<Screenshot 2024-09-08 at 9.16.38 PM.png>)
 
 ## Screenshots
 
