@@ -34,7 +34,7 @@ const Navbar = () => {
               <>
                 <li>
                   <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded flex items-center"
+                    className="bg-purple-700 hover:bg-purple-500 text-white px-3 py-2 rounded flex items-center"
                     onClick={() => navigate("/calendarsubtask")}
                   >
                     <FaCalendarAlt className="mr-1" /> Show Task for Date
@@ -51,17 +51,14 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <li>
-                  <Link
-                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded"
-                    to="/login"
-                  >
+                 <li>
+                  <Link className="text-white hover:text-gray-300" to="/login">
                     Login
                   </Link>
                 </li>
                 <li>
                   <Link
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded"
+                    className="text-white hover:text-gray-300"
                     to="/register"
                   >
                     Register

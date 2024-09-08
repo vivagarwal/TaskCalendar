@@ -57,8 +57,13 @@ const CalendarSubTask = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
-        setParentTasks(response.data.tasks);
-        setShowParentTasksDropdown(true);
+        const tasks = response.data.tasks;
+        if (tasks.length === 0) {
+          window.alert("There are no projects to create a task. Please create one and try again.");
+        } else {
+          setParentTasks(tasks);
+          setShowParentTasksDropdown(true);
+        }
       })
       .catch((error) => {
         console.error("Error fetching parent tasks:", error);
@@ -89,7 +94,11 @@ const CalendarSubTask = () => {
   };
 
   const handleCreateTaskClick = () => {
-    fetchParentTasks();
+    if (showParentTasksDropdown) {
+      setShowParentTasksDropdown(false);
+    } else {
+      fetchParentTasks();
+    }
   };
 
   const handleDropdownItemClick = (task) => {
