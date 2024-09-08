@@ -57,24 +57,25 @@ npm install
 4. **Configure Environment Variables for backend**
 
 Create a .env file in the backend directory and add the following:
-
+```
 MONGO_URI=mongodb://localhost:27017/your_database_name 
 SECRET_KEY=your_secret_key
-    
+```    
 
 5. **Frontend Setup**
 
 Navigate to the frontend directory and install the required dependencies:
-
+```
 cd ../frontend
 npm install
-    
+```    
 
 6. **Configure Environment Variables for fronyend**
 
 Create a .env file in the frontend directory and add the following:
-
+```
 VITE_BASE_URL=your_backend_url
+```
 
 7. **Run MongoDB locally**
 
